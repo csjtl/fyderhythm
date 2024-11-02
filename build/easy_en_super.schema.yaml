@@ -1,0 +1,203 @@
+__build_info:
+  rime_version: 1.11.2
+  timestamps:
+    default: 1730473707
+    default.custom: 1730457318
+    easy_en_super.custom: 0
+    easy_en_super.schema: 1730457317
+    punctuation: 1730516421
+    punctuation.custom: 0
+e_reverse_lookup:
+  comment_format:
+    - "xform/^.+⌗//"
+    - "xform|^[ a-z;/.'-]+||"
+    - "xform/@@/\\n          /"
+    - "xform/@/ /"
+  dictionary: easy_en_super
+  overwrite_comment: true
+  tags:
+    - abc
+easy_en_script:
+  comment_format:
+    - "xform/.+//"
+  dictionary: easy_en_super
+  enable_completion: false
+  enable_encoder: false
+  enable_sentence: false
+  enable_user_dict: false
+  encode_commit_history: false
+  user_dict: db_easy_en_super
+engine:
+  filters:
+    - "lua_filter@en_sort_filter"
+    - "reverse_lookup_filter@e_reverse_lookup"
+    - uniquifier
+  processors:
+    - ascii_composer
+    - key_binder
+    - speller
+    - recognizer
+    - punctuator
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - matcher
+    - ascii_segmentor
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    - table_translator
+    - "script_translator@easy_en_script"
+    - punct_translator
+key_binder:
+  bindings:
+    - {accept: "Shift+Tab", send: "Shift+Left", when: composing}
+    - {accept: Tab, send: "Shift+Right", when: composing}
+    - {accept: "Alt+Left", send: "Shift+Left", when: composing}
+    - {accept: "Alt+Right", send: "Shift+Right", when: composing}
+    - {accept: minus, send: Page_Up, when: has_menu}
+    - {accept: equal, send: Page_Down, when: has_menu}
+    - {accept: "Control+Shift+8", toggle: full_shape, when: always}
+    - {accept: "Control+Shift+asterisk", toggle: full_shape, when: always}
+    - {accept: "Control+Shift+9", toggle: ascii_punct, when: always}
+    - {accept: "Control+Shift+parenleft", toggle: ascii_punct, when: always}
+    - {accept: "Control+k", send: "Shift+Delete", when: composing}
+    - {accept: KP_0, send: 0, when: composing}
+    - {accept: KP_1, send: 1, when: composing}
+    - {accept: KP_2, send: 2, when: composing}
+    - {accept: KP_3, send: 3, when: composing}
+    - {accept: KP_4, send: 4, when: composing}
+    - {accept: KP_5, send: 5, when: composing}
+    - {accept: KP_6, send: 6, when: composing}
+    - {accept: KP_7, send: 7, when: composing}
+    - {accept: KP_8, send: 8, when: composing}
+    - {accept: KP_9, send: 9, when: composing}
+    - {accept: KP_Decimal, send: period, when: composing}
+    - {accept: comma, send: comma, when: has_menu}
+    - {accept: comma, send: comma, when: paging}
+    - {accept: period, send: period, when: has_menu}
+    - {accept: period, send: period, when: paging}
+    - {accept: minus, send: minus, when: has_menu}
+    - {accept: minus, send: minus, when: paging}
+    - {accept: equal, send: equal, when: has_menu}
+    - {accept: equal, send: equal, when: paging}
+    - {accept: Left, send: Page_Up, when: paging}
+    - {accept: Right, send: Page_Down, when: paging}
+    - {accept: "Control+bracketright", toggle: en_sort, when: always}
+  import_preset: default
+  select_first_character: bracketleft
+  select_last_character: bracketright
+menu:
+  page_size: 8
+punctuator:
+  full_shape:
+    " ": {commit: " "}
+    "!": {commit: "！"}
+    "\"": {commit: "”"}
+    "#": {commit: "＃"}
+    "$": {commit: "￥"}
+    "%": {commit: "％"}
+    "&": {commit: "＆"}
+    "'": {commit: "’"}
+    "(": {commit: "（"}
+    ")": {commit: "）"}
+    "*": {commit: "＊"}
+    "+": {commit: "＋"}
+    ",": {commit: "，"}
+    "-": {commit: "－"}
+    .: {commit: "。"}
+    "/": {commit: "／"}
+    ":": {commit: "："}
+    ";": {commit: "；"}
+    "<": {commit: "《"}
+    "=": {commit: "＝"}
+    ">": {commit: "》"}
+    "?": {commit: "？"}
+    "@": {commit: "＠"}
+    "[": {commit: "【"}
+    "\\": {commit: "、"}
+    "]": {commit: "】"}
+    "^": {commit: "……"}
+    _: {commit: "——"}
+    "`": {commit: "·"}
+    "{": {commit: "｛"}
+    "|": {commit: "｜"}
+    "}": {commit: "｝"}
+    "~": {commit: "～"}
+  half_shape:
+    " ": {commit: " "}
+    "!": {commit: "！"}
+    "\"": {commit: "“"}
+    "#": {commit: "#"}
+    "$": {commit: "￥"}
+    "%": {commit: "%"}
+    "&": {commit: "&"}
+    "'": {commit: "‘"}
+    "(": {commit: "（"}
+    ")": {commit: "）"}
+    "*": {commit: "*"}
+    "+": {commit: "+"}
+    ",": {commit: "，"}
+    "-": {commit: "-"}
+    .: {commit: .}
+    "/": ["/", "//"]
+    ":": {commit: "："}
+    ";": {commit: "；"}
+    "<": {commit: "《"}
+    "=": {commit: "="}
+    ">": {commit: "》"}
+    "?": {commit: "？"}
+    "@": {commit: "@"}
+    "[": {commit: "【"}
+    "\\": {commit: "、"}
+    "]": {commit: "】"}
+    "^": {commit: "……"}
+    _: {commit: "——"}
+    "`": {commit: "·"}
+    "{": {commit: "{"}
+    "|": {commit: "|"}
+    "}": {commit: "}"}
+    "~": {commit: "~"}
+  import_preset: default
+recognizer:
+  import_preset: default
+  patterns:
+    email: "^[A-Za-z][-_.0-9A-Za-z]*@.*$"
+    underscore: "^[A-Za-z]+_.*"
+    url: "^(www[.]|https?:|ftp[.:]|mailto:|file:).*$|^[a-z]+[.].+$"
+schema:
+  author:
+    - "洋葱"
+    - "方案制作人 聚焦单车 https://tl8517.com"
+  description: "Easy English Super"
+  name: "EasyEnglish英汉字典"
+  schema_id: easy_en_super
+  version: 202410
+speller:
+  algebra:
+    - "derive/^\\|$/ /"
+    - "xform/⌗.*$//"
+  alphabet: "zyxwvutsrqponmlkjihgfedcba-.;/'"
+  delimiter: " "
+switches:
+  - name: ascii_mode
+    reset: 0
+    states: ["ASCII-OFF", "ASCII-ON"]
+  - name: full_shape
+    reset: 0
+    states: ["🌙", "🌕️"]
+  - name: en_sort
+    reset: 0
+    states: ["个排", "序排"]
+translator:
+  comment_format:
+    - "xform/.+//"
+  dictionary: easy_en_super
+  enable_completion: true
+  enable_encoder: false
+  enable_sentence: false
+  enable_user_dict: false
+  encode_commit_history: false
+  user_dict: db_easy_en_super

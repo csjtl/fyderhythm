@@ -1,0 +1,123 @@
+# Rime schema settings
+# encoding: utf-8
+
+schema:
+  schema_id: focus_en
+  name: Focus_English
+  version: "2024-11-02"
+  author:
+    - 洋葱
+    - Focus_English https://tl8517.com
+  description:
+    输入全小写输出单词，词组等
+    输入全大写（缩写词）输出缩写词全拼
+    输入首字母大写输出一些语法使用。
+
+switches:
+  - name: ascii_mode
+    states: [ ASCII-OFF, ASCII-ON ]
+    reset: 0
+  - name: full_shape
+    states: [ 🌙 , 🌕️ ]
+    reset: 0
+  - name: emoji_suggestion
+    states: [ "🈚️\uFE0E" , "🈶️️\uFE0F" ]
+    reset: 0
+
+engine:
+  processors:
+    - ascii_composer
+    - key_binder
+    - speller
+    - recognizer
+    - punctuator    #關閉標點符號轉換（對應symbols.yaml）
+    - selector
+    - navigator
+    - express_editor
+  segmentors:
+    - matcher
+    - ascii_segmentor
+    - abc_segmentor
+    - punct_segmentor
+    - fallback_segmentor
+  translators:
+    #- echo_translator #会把分号和/上屏
+    - table_translator
+    - punct_translator
+  filters:
+    - simplifier@emoji_suggestion
+    - reverse_lookup_filter@e_reverse_lookup
+    - uniquifier                        # Emoji
+
+speller:
+  alphabet: "zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA-?/>"
+  initials: "zyxwvutsrqponmlkjihgfedcbaZYXWVUTSRQPONMLKJIHGFEDCBA-?/>"
+  delimiter: " "
+  algebra:
+    - derive/^\|$/ /
+    - xform/⌗.*$//
+    # - derive/(.)[;']$/$1/
+    # - derive/^(.+)([;'])$/$2$1/
+
+translator:
+  dictionary: focus_en
+  enable_user_dict: true
+  #db_class: tabledb             #用户字典类型
+  user_dict: db_focus_en
+  enable_encoder: false
+  encode_commit_history: false
+  enable_completion: true
+  # sentence_over_completion: true
+  enable_sentence: false
+  enable_user_dict: false
+  # strict_spelling: false
+  # spelling_hints: 2
+  # initial_quality: 1000
+  comment_format:
+    - xform/.+//  #删除尚未输入完整码之提示 ~abc
+  #   # - xform/⌗$//
+  #   # - xform|[~a-z;/.'-]+||
+  #   - xform/^.+⌗//
+  #   - xform|^[ a-z;/.'-]+||
+  #   - xform/@@/\n          /
+  #   - xform/@/ /
+
+easy_en_script:
+  __include: /translator
+  # enable_encoder: true
+  enable_completion: false
+  enable_sentence: false
+  enable_user_dict: false
+  # spelling_hints: 1
+  # initial_quality: 0
+  # comment_format: []
+
+key_binder:
+  import_preset: default
+  bindings:
+    - {accept: comma, send: comma, when: has_menu}
+    - {accept: comma, send: comma, when: paging}
+    - {accept: period, send: period, when: has_menu}
+    - {accept: period, send: period, when: paging}
+    - {accept: minus, send: minus, when: has_menu}
+    - {accept: minus, send: minus, when: paging}
+    - {accept: equal, send: equal, when: has_menu}
+    - {accept: equal, send: equal, when: paging}
+### 选字翻页 ###
+    - {accept: Left, send: Page_Up, when: paging} #直式选单用 #has_menu
+    - {accept: Right, send: Page_Down, when: paging} #直式选单用 #has_menu
+
+# Emoji
+emoji_suggestion:
+  option_name: emoji_suggestion
+  opencc_config: emoji_en.json
+  tips: all
+  inherit_comment: false  # 在 corrector.lua 及反查中，emoji 返回空注释
+
+punctuator:
+  import_preset: default
+
+recognizer:
+  import_preset: default
+  patterns:
+    punct: '^/([0-9]0?|[A-Za-z]+)$'  # 响应 symbols.yaml 的 symbols，用 '/'

@@ -13,7 +13,7 @@ schema:
     雾凇拼音
     https://github.com/iDvel/rime-ice
   dependencies:
- #   - focus_en        # 英文输入，作为次翻译器挂载到拼音方案
+    - focus_en        # 英文输入，作为次翻译器挂载到拼音方案
 
 
 # 开关

@@ -1,0 +1,13 @@
+# Rime dictionary
+# encoding: utf-8
+#
+# 挂载英文输入方案的词库
+#
+
+---
+name: easy_en_super
+version: "2024-10-13"
+sort: original #by_weight
+import_tables:
+  - easy_en_superdicts     # 英文词典主词库
+...

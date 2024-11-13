@@ -6,18 +6,18 @@ name: rime_ice
 version: "2024-10-25"
 import_tables:
   - pinyin_simp # 单字
-  #- pinyinA     # A：词，搜狗官方推荐
-  #- pinyinB01   # B：词，搜狗全部，与官方推荐去重
-  #- pinyinB02
-  #- pinyinB03
-  #- 8105     # 字表
-  # - 41448  # 大字表（按需启用）
-  #- base     # 基础词库
-  #- ext      # 扩展词库
-  #- tencent  # 腾讯词向量（大词库，部署时间较长）
-  #- others   # 一些杂项
+  - pinyinA     # A：词，搜狗官方推荐
+  - pinyinB01   # B：词，搜狗全部，与官方推荐去重
+  - pinyinB02
+  - pinyinB03
+  #- dicts_cn/8105     # 字表
+  # - dicts_cn/41448  # 大字表（按需启用）
+  #- dicts_cn/base     # 基础词库
+  #- dicts_cn/ext      # 扩展词库
+  #- dicts_cn/tencent  # 腾讯词向量（大词库，部署时间较长）
+  - others   # 一些杂项
 
- # - emoji_cd_pin
+  - emoji_cd_pin
 
   # 建议把扩展词库放到下面，有重复词条时，最上面的权重生效
 ...

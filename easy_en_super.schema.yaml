@@ -59,7 +59,7 @@ speller:
     # - derive/^(.+)([;'])$/$2$1/
 
 translator:
-  dictionary: easy_en_super
+  dictionary: easy_en_superdicts
   enable_user_dict: true
   #db_class: tabledb             #用户字典类型
   user_dict: db_easy_en_super
